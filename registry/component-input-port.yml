@@ -1,0 +1,28 @@
+apiVersion: terraform.core.oam.dev/v1beta1
+kind: ComponentDefinition
+metadata:
+  name: s3-input-port
+  annotations:
+    definition.oam.dev/description: Terraform configuration for s3 input port
+    type: terraform
+spec:
+  workload:
+    definition:
+      apiVersion: terraform.core.oam.dev/v1beta1
+      kind: Configuration
+  schematic:
+    terraform:
+      configuration: |
+      terraform {
+        backend "local" { }
+      }
+
+      provider "aws" {
+        region = "eu-central-1"
+        profile = var.profile
+        endpoints {
+        s3 = "http://0.0.0.0:4572"
+        }
+      }
+
+      data "aws_caller_identity" "current" {}
