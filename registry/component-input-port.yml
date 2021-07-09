@@ -24,11 +24,12 @@ spec:
           s3 = "http://0.0.0.0:4572"
           }
         }
-      resource "aws_s3_bucket" "this" {
-        bucket = "input_bucket"
-        tags = {
-          Name = "data bucket"
-          }
-        }
+        
+        resource "aws_s3_bucket" "this" {
+          bucket = "input_bucket"
+          tags = {
+            Name = "data bucket"
+            }
+         }
 
         data "aws_caller_identity" "current" {}
