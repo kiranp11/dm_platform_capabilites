@@ -21,7 +21,7 @@ spec:
           region = "eu-central-1"
           profile = var.profile
           endpoints {
-          s3 = "http://0.0.0.0:4572"
+          s3 = "http://0.0.0.0:4566"
           }
         }
         
