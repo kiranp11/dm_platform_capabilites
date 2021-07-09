@@ -13,16 +13,16 @@ spec:
   schematic:
     terraform:
       configuration: |
-      terraform {
-        backend "local" { }
-      }
-
-      provider "aws" {
-        region = "eu-central-1"
-        profile = var.profile
-        endpoints {
-        s3 = "http://0.0.0.0:4572"
+        terraform {
+          backend "local" { }
         }
-      }
 
-      data "aws_caller_identity" "current" {}
+        provider "aws" {
+          region = "eu-central-1"
+          profile = var.profile
+          endpoints {
+          s3 = "http://0.0.0.0:4572"
+          }
+        }
+
+        data "aws_caller_identity" "current" {}
