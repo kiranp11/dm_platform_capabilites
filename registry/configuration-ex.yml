@@ -1,5 +1,5 @@
 apiVersion: terraform.core.oam.dev/v1beta1
-kind: Configuration
+kind: ComponentDefinition
 metadata:
   name: alibaba-oss
 spec:
