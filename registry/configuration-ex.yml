@@ -1,34 +1,39 @@
 apiVersion: terraform.core.oam.dev/v1beta1
 kind: ComponentDefinition
 metadata:
-  name: alibaba-oss
+  name: aws-s3
+  annotations:
+    definition.oam.dev/description: Terraform configuration for s3 input port
+    type: terraform
 spec:
-  hcl: |
-    resource "alicloud_oss_bucket" "bucket-acl" {
-      bucket = var.bucket
-      acl = var.acl
-    }
+  workload:
+    definition:
+      apiVersion: terraform.core.oam.dev/v1beta1
+      kind: Configuration
+  schematic:
+    hcl:
+      configuration: |      
+        resource "aws_s3_bucket" "bucket-acl" {
+          bucket = var.bucket
+          acl    = var.acl
+        }
 
-    output "BUCKET_NAME" {
-      value = "${alicloud_oss_bucket.bucket-acl.bucket}.${alicloud_oss_bucket.bucket-acl.extranet_endpoint}"
-    }
+        output "BUCKET_NAME" {
+          value = aws_s3_bucket.bucket-acl.bucket_domain_name
+        }
 
-    variable "bucket" {
-      description = "OSS bucket name"
-      default = "vela-website"
-      type = string
-    }
+        variable "bucket" {
+          default = "vela-website"
+        }
 
-    variable "acl" {
-      description = "OSS bucket ACL, supported 'private', 'public-read', 'public-read-write'"
-      default = "private"
-      type = string
-    }
+        variable "acl" {
+          default = "private"
+        }
 
-  variable:
-    bucket: "vela-website"
-    acl: "private"
+      variable:
+        bucket: "vela-website"
+        acl: "private"
 
-  writeConnectionSecretToRef:
-    name: oss-conn
-    namespace: default
+      writeConnectionSecretToRef:
+          name: s3-conn
+          namespace: default
